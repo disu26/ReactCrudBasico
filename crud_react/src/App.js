@@ -3,6 +3,7 @@ import UserTable from "./components/UserTable";
 import { v4 as uuidv4 } from 'uuid';
 import AddUserForm from "./components/AddUserForm";
 import EditUserForm from "./components/EditUserForm";
+import ModalEdit from "./components/ModalEdit";
 
 
 function App() {
@@ -32,29 +33,44 @@ function App() {
   //Editar Usuarios
   const [editing, setEditing] = useState(false);
 
+  const [modalEdit, setModalEdit] = useState(false);
+
   const [currentUser, setCurrentUser] = useState({
     id: null, name: '', username: ''
   });
 
   const editRow = (user) => {
-    setEditing(true);
+    setModalEdit(true);
     setCurrentUser({
       id: user.id, name: user.name, username: user.username
     })
   }
 
   const updateUser = (id, updateUser) => {
-    setEditing(false);
+    setModalEdit(false);
 
     setUsers(users.map(user => (user.id == id ? updateUser : user)))
   }
 
   return (
-    <div className="App">
-      <h1>CRUD App with Hooks</h1>
-      <div className="flex-row">
+    <div className="container mt-5">
+      <h1>Curso Basico React CRUD - Dímar Andrey Suárez Hidalgo</h1>
+      <div className="flex-row mt-5">
         <div className="flex-large">
-          {
+          {!!modalEdit && (
+              <ModalEdit>
+                <EditUserForm 
+                    currentUser = {currentUser}
+                    updateUser = {updateUser}
+                />
+              </ModalEdit>
+            )
+          }
+        </div>
+      </div>
+      <div className="flex-row">
+        
+          {/*
             editing ? (
               <div>
                 <h2>Edit user</h2>
@@ -69,11 +85,9 @@ function App() {
                   <AddUserForm addUsers = {addUsers}/>
               </div>
             )
-          }
-
-        </div>
+            */}
         <div className="flex-large">
-          <h2>View users</h2>
+          <h2>Users</h2>
           <UserTable 
             users = {users} 
             deleteUser = {deleteUser} 
