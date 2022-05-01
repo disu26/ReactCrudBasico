@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import AddUserForm from "./components/AddUserForm";
 import EditUserForm from "./components/EditUserForm";
 import ModalEdit from "./components/ModalEdit";
+import ModalAdd from "./components/ModalAdd";
 
 
 function App() {
@@ -17,12 +18,16 @@ function App() {
   const [users, setUsers] = useState(usersData)
 
   //Agregar usuarios
+  const [createUser, setCreateUser] = useState(false);
+
+
   const addUsers = (user) => {
     user.id = uuidv4()
     setUsers([
       ...users,
       user
     ])
+    setCreateUser(false);
   }
 
   //Eliminar Usuarios
@@ -31,8 +36,6 @@ function App() {
   }
 
   //Editar Usuarios
-  const [editing, setEditing] = useState(false);
-
   const [modalEdit, setModalEdit] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({
@@ -49,7 +52,7 @@ function App() {
   const updateUser = (id, updateUser) => {
     setModalEdit(false);
 
-    setUsers(users.map(user => (user.id == id ? updateUser : user)))
+    setUsers(users.map(user => (user.id === id ? updateUser : user)))
   }
 
   return (
@@ -64,6 +67,14 @@ function App() {
                     updateUser = {updateUser}
                 />
               </ModalEdit>
+            )
+          }
+        </div>
+        <div className="flex-large">
+          {!!createUser && (
+              <ModalAdd>
+                <AddUserForm addUsers = {addUsers}/>
+              </ModalAdd>
             )
           }
         </div>
@@ -88,6 +99,7 @@ function App() {
             */}
         <div className="flex-large">
           <h2>Users</h2>
+          <button className="btn btn-success" onClick={setCreateUser(true)}>Nuevo Usuario</button>
           <UserTable 
             users = {users} 
             deleteUser = {deleteUser} 
