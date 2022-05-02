@@ -9,7 +9,7 @@ import EditUserForm from './EditUserForm';
 
 const ModalEdit = ({updateUser, editing, currentUser}) => {
     return (
-        <Modal isOpen={editing}>
+        <Modal isOpen={editing} >
             <ModalHeader>
                 <div><h3>Editar Usuario</h3></div>
             </ModalHeader>
