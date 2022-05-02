@@ -1,5 +1,14 @@
 import React, { Fragment } from 'react';
 
+/**
+ * Componente con toda la información de los usuarios y que contiene los botones para añadir, editar y
+ * eliminar usuarios.
+ * 
+ * @param {*} props 
+ * @returns Fragment que contiene la estructura principal de la página.
+ * 
+ * @author Dímar Andrey Suárez Hidalgo <dimar260212@gmail.com>
+ */
 const UserTable = (props) => {
     return ( 
         <Fragment>

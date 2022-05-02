@@ -1,5 +1,14 @@
 import React from "react";
 
+/**
+ * Función para manejar el local storage y almacenar la información del CRUD.
+ * 
+ * @param {*} itemName : Nombre del ítem a guardar.
+ * @param {*} initialValue : Valor inicial del ítem.
+ * @returns el item guardado y la función para actualizarlo.
+ * 
+ * @author Dímar Andrey Suárez Hidalgo <dimar260212@gmail.com>
+ */
 function useLocalStorage(itemName, initialValue) {
   const [item, setItem] = React.useState(initialValue);
 

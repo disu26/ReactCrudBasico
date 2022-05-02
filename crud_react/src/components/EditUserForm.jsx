@@ -1,22 +1,31 @@
 import React, {Fragment} from "react";
 import { useForm } from "react-hook-form";
 
-const EditUserForm = (props) => {
+/**
+ * Componente con el formulario para editar un usuario.
+ * 
+ * @param {*} currentUser: usuario actual que se está modificando.
+ * @param {*} updateUser: nueva información del usuario
+ * @returns Form con la información ingresada por el usuario.
+ * 
+ * @author Dímar Andrey Suárez Hidalgo <dimar260212@gmail.com>
+ */
+const EditUserForm = ({currentUser, updateUser}) => {
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         defaultValues: props.currentUser
     });
 
-    const currentUserName = props.currentUser.name;
-    const currentUserUsername = props.currentUser.username;
+    const currentUserName = currentUser.name;
+    const currentUserUsername = currentUser.username;
 
     setValue('name', currentUserName);
     setValue('username', currentUserUsername);
 
     const onSubmit = (data, e) => {
-        data.id = props.currentUser.id;
+        data.id = currentUser.id;
 
-        props.updateUser(props.currentUser.id, data)
+        updateUser(currentUser.id, data)
 
         e.target.reset();
     }
