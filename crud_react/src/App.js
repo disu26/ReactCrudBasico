@@ -19,6 +19,9 @@ function App() {
   const [adding, setAdding] = useState(false);
 
   //Agregar usuarios
+  const [createUser, setCreateUser] = useState(false);
+
+
   const addUsers = (user) => {
     user.id = uuidv4()
     setUsers([
@@ -35,21 +38,21 @@ function App() {
   }
 
   //Editar Usuarios
-  const [editing, setEditing] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({
     id: null, name: '', username: ''
   });
 
   const editRow = (user) => {
-    setEditing(true);
+    setModalEdit(true);
     setCurrentUser({
       id: user.id, name: user.name, username: user.username
     })
   }
 
   const updateUser = (id, updateUser) => {
-    setEditing(false);
+    setModalEdit(false);
 
     setUsers(users.map(user => (user.id === id ? updateUser : user)))
   }
