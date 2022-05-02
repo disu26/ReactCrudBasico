@@ -36,7 +36,7 @@ const AddUserForm = (props) => {
                 <div>
                     {errors?.username?.message}
                 </div>
-                <button>Add new user</button>
+                <button className='btn btn-primary'>Add User</button>
             </form>
         </Fragment>
     );
