@@ -1,7 +1,6 @@
 import { useState } from "react";
 import UserTable from "./components/UserTable";
 import { v4 as uuidv4 } from 'uuid';
-import AddUserForm from "./components/AddUserForm";
 import EditUserForm from "./components/EditUserForm";
 import ModalEdit from "./components/ModalEdit";
 import ModalAdd from "./components/ModalAdd";
@@ -17,6 +16,8 @@ function App() {
 
   const [users, setUsers] = useState(usersData)
 
+  const [adding, setAdding] = useState(false);
+
   //Agregar usuarios
   const [createUser, setCreateUser] = useState(false);
 
@@ -27,8 +28,9 @@ function App() {
       ...users,
       user
     ])
-    setCreateUser(false);
+    setAdding(false)
   }
+
 
   //Eliminar Usuarios
   const deleteUser = (id) => {
@@ -58,53 +60,30 @@ function App() {
   return (
     <div className="container mt-5">
       <h1>Curso Basico React CRUD - Dímar Andrey Suárez Hidalgo</h1>
-      <div className="flex-row mt-5">
-        <div className="flex-large">
-          {!!modalEdit && (
-              <ModalEdit>
-                <EditUserForm 
-                    currentUser = {currentUser}
-                    updateUser = {updateUser}
-                />
-              </ModalEdit>
-            )
-          }
-        </div>
-        <div className="flex-large">
-          {!!createUser && (
-              <ModalAdd>
-                <AddUserForm addUsers = {addUsers}/>
-              </ModalAdd>
-            )
-          }
-        </div>
-      </div>
       <div className="flex-row">
-        
-          {/*
-            editing ? (
-              <div>
-                <h2>Edit user</h2>
-                <EditUserForm 
-                  currentUser = {currentUser}
-                  updateUser = {updateUser}
-                />
-              </div>
-            ) : (
-              <div>
-                  <h2>Add user</h2>
-                  <AddUserForm addUsers = {addUsers}/>
-              </div>
-            )
-            */}
         <div className="flex-large">
-          <h2>Users</h2>
-          <button className="btn btn-success" onClick={setCreateUser(true)}>Nuevo Usuario</button>
+          <h2>View users</h2>
           <UserTable 
             users = {users} 
             deleteUser = {deleteUser} 
             editRow = {editRow}
+            setAdding = {setAdding}
           />
+        </div>
+        <div>
+          <div className="flex-large">
+            <ModalEdit 
+              updateUser = {updateUser} 
+              editing={editing} 
+              currentUser= {currentUser}
+            />
+          </div>
+          <div className="flex-large">
+            <ModalAdd 
+              adding= {adding}
+              addUsers = {addUsers}
+            />
+          </div>
         </div>
       </div>
     </div>
