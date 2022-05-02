@@ -1,8 +1,9 @@
 import { useState } from "react";
 import UserTable from "./components/UserTable";
 import { v4 as uuidv4 } from 'uuid';
-import AddUserForm from "./components/AddUserForm";
 import EditUserForm from "./components/EditUserForm";
+import ModalEdit from "./components/ModalEdit";
+import ModalAdd from "./components/ModalAdd";
 
 
 function App() {
@@ -15,6 +16,8 @@ function App() {
 
   const [users, setUsers] = useState(usersData)
 
+  const [adding, setAdding] = useState(false);
+
   //Agregar usuarios
   const addUsers = (user) => {
     user.id = uuidv4()
@@ -22,7 +25,9 @@ function App() {
       ...users,
       user
     ])
+    setAdding(false)
   }
+
 
   //Eliminar Usuarios
   const deleteUser = (id) => {
@@ -46,39 +51,36 @@ function App() {
   const updateUser = (id, updateUser) => {
     setEditing(false);
 
-    setUsers(users.map(user => (user.id == id ? updateUser : user)))
+    setUsers(users.map(user => (user.id === id ? updateUser : user)))
   }
 
   return (
-    <div className="App">
-      <h1>CRUD App with Hooks</h1>
+    <div className="container mt-5">
+      <h1>Curso Basico React CRUD - Dímar Andrey Suárez Hidalgo</h1>
       <div className="flex-row">
-        <div className="flex-large">
-          {
-            editing ? (
-              <div>
-                <h2>Edit user</h2>
-                <EditUserForm 
-                  currentUser = {currentUser}
-                  updateUser = {updateUser}
-                />
-              </div>
-            ) : (
-              <div>
-                  <h2>Add user</h2>
-                  <AddUserForm addUsers = {addUsers}/>
-              </div>
-            )
-          }
-
-        </div>
         <div className="flex-large">
           <h2>View users</h2>
           <UserTable 
             users = {users} 
             deleteUser = {deleteUser} 
             editRow = {editRow}
+            setAdding = {setAdding}
           />
+        </div>
+        <div>
+          <div className="flex-large">
+            <ModalEdit 
+              updateUser = {updateUser} 
+              editing={editing} 
+              currentUser= {currentUser}
+            />
+          </div>
+          <div className="flex-large">
+            <ModalAdd 
+              adding= {adding}
+              addUsers = {addUsers}
+            />
+          </div>
         </div>
       </div>
     </div>

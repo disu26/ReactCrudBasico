@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 const UserTable = (props) => {
     return ( 
         <Fragment>
+            <button className="btn btn-primary" onClick={() => {props.setAdding(true)}}>Nuevo Usuario</button>
             <table>
                 <thead>
                 <tr>
@@ -20,17 +21,20 @@ const UserTable = (props) => {
                                 <td>{user.username}</td>
                                 <td>
                                 <button 
-                                    className="button muted-button"
+                                    className="btn btn-success"
                                     onClick={() => {props.editRow(user)}}
                                 >Edit</button>
+                                {"  "}
                                 <button 
-                                    className="button muted-button"
+                                    className="btn btn-danger"
                                     onClick={() => {props.deleteUser(user.id)}}
                                 >Delete</button>
                                 </td>
                             </tr>
                         )) : (
-                            <tr colspan={3}>No users</tr>
+                            <tr>
+                                <td colSpan={3}> No Users </td>
+                            </tr>
                         )
                     }
                 
