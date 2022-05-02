@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 const EditUserForm = ({currentUser, updateUser}) => {
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
-        defaultValues: props.currentUser
+        defaultValues: currentUser
     });
 
     const currentUserName = currentUser.name;
