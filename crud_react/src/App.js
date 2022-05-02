@@ -1,7 +1,6 @@
 import { useState } from "react";
 import UserTable from "./components/UserTable";
 import { v4 as uuidv4 } from 'uuid';
-import EditUserForm from "./components/EditUserForm";
 import ModalEdit from "./components/ModalEdit";
 import ModalAdd from "./components/ModalAdd";
 
@@ -38,21 +37,21 @@ function App() {
   }
 
   //Editar Usuarios
-  const [modalEdit, setModalEdit] = useState(false);
+  const [editing, setEditing] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({
     id: null, name: '', username: ''
   });
 
   const editRow = (user) => {
-    setModalEdit(true);
+    setEditing(true);
     setCurrentUser({
       id: user.id, name: user.name, username: user.username
     })
   }
 
   const updateUser = (id, updateUser) => {
-    setModalEdit(false);
+    setEditing(false);
 
     setUsers(users.map(user => (user.id === id ? updateUser : user)))
   }
